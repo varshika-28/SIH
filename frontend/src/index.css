@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-gv-bg: #FDFBF7;
+  --color-gv-green-dark: #2E4A35;
+  --color-gv-green: #4F7355;
+  --color-gv-green-light: #d1ead7;
+  --color-gv-brown-dark: #5D2B19;
+  --color-gv-brown: #7D3C23;
+  --color-gv-brown-light: #f3dfc8;
+  --color-gv-accent: #f0a22a;
+  --color-gv-text: #2d2a26;
+  --color-gv-text-light: #6b635e;
+}
+
+:root {
+  --sans: 'Outfit', system-ui, sans-serif;
+  font: 16px/150% var(--sans);
+  color-scheme: light;
+  color: var(--color-gv-text);
+  background: var(--color-gv-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background-color: #e5e5e5; /* darker bg outside mobile container */
+}
+
+/* 3D Entry Animation Styles */
+.perspective-container {
+  perspective: 1200px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.app-3d-wrapper {
+  width: 100%;
+  height: 100%;
+  background: var(--color-gv-bg);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden; /* Prevent scrolling on the main wrapper, we'll scroll content */
+  display: flex;
+  
+  /* Initial 3D State */
+  transform: rotateX(15deg) rotateY(-15deg) scale(0.9) translateZ(-100px);
+  opacity: 0;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease-out;
+}
+
+.app-3d-wrapper.entered {
+  transform: rotateX(0deg) rotateY(0deg) scale(1) translateZ(0);
+  opacity: 1;
+}
+
+/* 3D Page Transition Animation */
+@keyframes pageFlipIn {
+  0% {
+    opacity: 0;
+    transform: rotateY(-30deg) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(0deg) scale(1);
+  }
+}
+
+.page-transition-enter {
+  animation: pageFlipIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scrollbar hiding for seamless mobile look */
+.app-3d-wrapper::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Base elements */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-gv-text);
+}
+
+p {
+  margin: 0;
+}
